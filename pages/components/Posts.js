@@ -1,15 +1,11 @@
 import React from 'react'
 import Post from './Post'
 
-const Posts = () => {
+const Posts = ({posts}) => {
     return (
         <div className="row">
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
+            {posts.map(post=>(<Post post={post} key={post._id}/>))}
+            
            
         </div>
     )

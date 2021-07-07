@@ -1,29 +1,68 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Authenticate from './components/Authenticate'
 import Link from "next/link"
-
+import firebase from '../firebaseClient'
+import { provider } from '../firebaseClient'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/dist/client/router'
+import { useContextHook } from './store'
 const login = () => {
+    const router=useRouter()
+    const [email,setEmail]=useState("")
+    const [password,setPassword]=useState("")
+    const {state:{user}} =useContextHook();
+    useEffect(() => {
+        
+        if(user)router.push("/")
+    }, [user])
+    function googleSignInPopup(e) {
+        e.preventDefault();
+        firebase.auth()
+          .signInWithPopup(provider)
+          .then(() => {
+            toast.success("you loged in successfully")
+            router.push("/")
+            
+          }).catch((error) => {
+            toast.error(error.message)
+          });
+       
+      }
+   const SignIn=()=>{
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => {
+  
+      toast.success("you loged in successfully");
+      router.push("/")
+    })
+    .catch((error) => {
+        toast.error(error.message)
+    });
+   }
     return (
         <Authenticate>
        <div className="container mt-3  ">
            <div className="d-flex justify-content-center flex-column align-items-center">
-               <h4>Sign In</h4>
+              {!user? <div class="spinner-grow text-secondary" role="status">
+  <span class="sr-only">Loading...</span>
+</div>:<> <h4>Sign In</h4>
            <div>
                <form>
                    <div className="form-group">
                        <label>Email</label>
-                       <input type="text" className="form-control" />
+                       <input type="text" value={email} onChange={e=>setEmail(e.target.value)} className="form-control" />
                    </div>
                    <div className="form-group mt-2">
                        <label>Password</label>
-                       <input type="password" className="form-control" />
+                       <input type="password" value={password} onChange={e=>setPassword(e.target.value)} className="form-control" />
                    </div>
-                   <div className="form-group my-4">
-                       <button className="btn btn-sm btn-info">Login</button>
+                   <div className="d-flex justify-content-between my-4">
+                       <button className="btn btn-sm btn-info" onClick={SignIn}>Login</button>
+                       <button className="btn btn-outline-danger btn-sm " onClick={googleSignInPopup}>Login With google</button>
                    </div>
                    <p>Don't have account <Link href="/createaccount"><a>Sign Up</a></Link></p>
                </form>
-           </div>
+           </div></>}
            </div>
            
        </div>

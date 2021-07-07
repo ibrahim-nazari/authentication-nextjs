@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Authenticate from './components/Authenticate'
+import firebase from "../firebaseClient"
 import Link from "next/link"
-
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/dist/client/router'
 const createaccount = () => {
-    
+    const router=useRouter();
+    const [email,setEmail]=useState("")
+    const [password,setPassword]=useState("")
+    const [process,setProcess]=useState(false)
+    const SignUp=(e)=>{
+        e.preventDefault();
+        setProcess(true)
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+  .then(() => {
+    toast.success("you successfully created an account");
+    setProcess(false)
+    router.push("/")
+
+  })
+  .catch((error) => {
+toast.error(error.message)
+  });
+    }
     return (
         <Authenticate>
        <div className="container mt-3  ">
@@ -13,14 +32,17 @@ const createaccount = () => {
                <form>
                    <div className="form-group">
                        <label>Email</label>
-                       <input type="text" className="form-control" />
+                       <input type="text" value={email} onChange={e=>setEmail(e.target.value)} className="form-control" />
                    </div>
                    <div className="form-group mt-2">
                        <label>Password</label>
-                       <input type="password" className="form-control" />
+                       <input type="password" value={password} onChange={e=>setPassword(e.target.value)} className="form-control" />
                    </div>
                    <div className="form-group my-4">
-                       <button className="btn btn-sm btn-info">Login</button>
+                       {!process ?<button className="btn btn-sm btn-info" onClick={SignUp}>Create account</button>:<button class="btn btn-info" type="button" disabled>
+  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  saving...
+</button>}
                    </div>
                    <p>Already have an account <Link href="/login"><a>Sign In</a></Link></p>
                </form>
