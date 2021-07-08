@@ -4,6 +4,7 @@ import firebase from "../../firebaseClient"
 import { useContextHook } from '../store'
 import { ToastContainer } from 'react-toastify';
 import nookies from "nookies"
+import axios from 'axios';
 const Authenticate = ({children}) => {
     const {state,dispatch}=useContextHook();
     useEffect(() => {
@@ -15,8 +16,16 @@ const Authenticate = ({children}) => {
             nookies.set(undefined,"token","",{});
            }else{
               const token=  await user.getIdToken();
-              nookies.set(undefined,"token",token,{});
-              dispatch({type:"LOGIN",payload:user})
+              const config = {
+                headers: { Authorization: token }
+            };
+            axios.post("/api/user",{},config).then(res=>{
+                console.log(res.data);nookies.set(undefined,"token",token,{});
+              dispatch({type:"LOGIN",payload:user});
+            }).catch(error=>console.log(error.message))
+
+              
+             
             
            }
        })

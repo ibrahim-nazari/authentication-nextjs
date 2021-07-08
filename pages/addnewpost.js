@@ -7,10 +7,14 @@ import { useContextHook } from './store';
 import { Editor } from '@tinymce/tinymce-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { parseCookies } from 'nookies'
 
 const addnewpost = () => {
-    const {state:{user}}=useContextHook();
+    const {state,dispatch}=useContextHook();
+    const {user}=state;
     const [post,setPost]=useState({title:"",image:"",description:""});
+    const cookies = parseCookies()
+
     const changed=(e)=>{
         let data=new FormData();
         data.append("image",e.target.files[0]);
@@ -19,12 +23,16 @@ const addnewpost = () => {
         console.log(res.data);
         }).catch(error=>console.log(error.message))
     }
+    console.log("token",cookies.token)
     const addPost=(e)=>{
      e.preventDefault();
      let newPost={...post,author:user.displayName?user.displayName:user.email.split("@")[0]}
-     axios.post("/api/post",newPost).then(res=>{
+     const config = {
+        headers: { Authorization: cookies.token }
+    };
+     axios.post("/api/post",newPost,config).then(res=>{
          toast.success("post added successfully")
-         dispatchEvent({type:"ADD_POSTS",payload:res.data})
+         dispatch({type:"ADD_POSTS",payload:res.data})
 console.log(res.data);
      }).catch(error=>console.log(error.message))
     }

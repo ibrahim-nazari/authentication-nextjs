@@ -1,17 +1,15 @@
 
-import connectDB from "../../middleware/db";
-import Post from "../../model/post"
-import User from "../../model/user"
 import { verifyIdToken } from "../../firebaseAdmin";
+import connectDB from "../../middleware/db";
+import User from "../../model/user"
 
 const handler = async (req, res) => {
     console.log("req **************", req.query);
-    const token=req.headers.authorization
-    console.log("token",token);
-    const { id } = req.query;
-    const responseData = () => {
+    const token=req.headers.authorization;
+    
+    const responseData = (id) => {
         if (id) {
-            Post.findOne({ _id: id }, function (err, result) {
+            User.findOne({ _id: id }, function (err, result) {
                 if (err) {
                     res.send(err);
                 } else {
@@ -19,7 +17,7 @@ const handler = async (req, res) => {
                 }
             });
         } else {
-            Post.find({}, function (err, result) {
+            User.find({}, function (err, result) {
                 if (err) {
                     res.send(err);
                 } else {
@@ -28,20 +26,20 @@ const handler = async (req, res) => {
             });
         }
     };
-    if (req.method === "POST") {
-        const postData = req.body;
-      
-        console.log("post data****", postData);
-        try {const user=await verifyIdToken(token);
-            console.log("user",user);
-            User.findOne({ email: user.email },async function (err, result) {
+    if (req.method === "post") {
+        
+        
+        try {
+            const user= await verifyIdToken(token);
+            User.findOne({ email: user.email }, function (err, result) {
                 if (err) {
-                    res.send(err);
-                } else {
-                   let post = new Post(postData);
-                   var saved = await post.save();
+                    let user = new User(UserData);
+            var saved = await user.save();
             console.log("created successfully");
             return res.status(201).send(saved);
+                    res.send(err);
+                } else {
+                   res.status(200).send(result)
                 }
             });
             
@@ -50,7 +48,7 @@ const handler = async (req, res) => {
             return res.status(500).send(error.message);
         }
     } else if (req.method == "PUT") {
-        Post.findByIdAndUpdate(
+        User.findByIdAndUpdate(
             req.query.id,
             req.body,
             { new: true },
@@ -63,7 +61,7 @@ const handler = async (req, res) => {
         );
     } else if (req.method == "DELETE") {
         //if(req.query.image !=""){fs.unlinkSync("./public/"+req.query.image);}
-        Post.remove({ _id: req.query.id }, function (err) {
+        User.remove({ _id: req.query.id }, function (err) {
             if (!err) {
                 console.log("removed success");
                 //responseData();

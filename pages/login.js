@@ -6,6 +6,7 @@ import { provider } from '../firebaseClient'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/dist/client/router'
 import { useContextHook } from './store'
+import axios from 'axios'
 const login = () => {
     const router=useRouter()
     const [email,setEmail]=useState("")
@@ -19,9 +20,12 @@ const login = () => {
         e.preventDefault();
         firebase.auth()
           .signInWithPopup(provider)
-          .then(() => {
+          .then((res) => {
+              
+           axios.post("/api/user",res.user).then(res=>{
             toast.success("you loged in successfully")
             router.push("/")
+           })
             
           }).catch((error) => {
             toast.error(error.message)
@@ -43,8 +47,8 @@ const login = () => {
         <Authenticate>
        <div className="container mt-3  ">
            <div className="d-flex justify-content-center flex-column align-items-center">
-              {!user? <div class="spinner-grow text-secondary" role="status">
-  <span class="sr-only">Loading...</span>
+              {user? <div class="spinner-grow text-secondary" role="status">
+  <span class="sr-only"></span>
 </div>:<> <h4>Sign In</h4>
            <div>
                <form>
