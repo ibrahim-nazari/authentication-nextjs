@@ -64,7 +64,7 @@ const Login = () => {
                        <button className="btn btn-sm btn-info" onClick={SignIn}>Login</button>
                        <button className="btn btn-outline-danger btn-sm " onClick={googleSignInPopup}>Login With google</button>
                    </div>
-                   <p>Don't have account <Link href="/createaccount"><a>Sign Up</a></Link></p>
+                   <p>Don &apos;t have account <Link href="/createaccount"><a>Sign Up</a></Link></p>
                </form>
            </div></>}
            </div>
