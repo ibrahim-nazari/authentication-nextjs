@@ -15,7 +15,7 @@ const Login = () => {
     useEffect(() => {
         
         if(user)router.push("/")
-    }, [user])
+    }, [user,router])
     function googleSignInPopup(e) {
         e.preventDefault();
         firebase.auth()

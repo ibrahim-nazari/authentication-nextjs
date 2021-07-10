@@ -29,7 +29,7 @@ const Authenticate = ({children}) => {
             
            }
        })
-    }, [])
+    }, [dispatch])
     return (
         <div>
             <ToastContainer />
