@@ -6,6 +6,7 @@ let post= new Schema({
     image:{type:String,required:true},
     description:{type:String,required:true},
     author:{type:String,required:true},
+    author_avatar:{type:String,required:true},
     author_id:{type:String,required:true}
 
 },{timestamps:true});

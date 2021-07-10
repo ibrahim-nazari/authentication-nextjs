@@ -5,9 +5,9 @@ import User from "../../model/user"
 import { verifyIdToken } from "../../firebaseAdmin";
 
 const handler = async (req, res) => {
-    console.log("req **************", req.query);
+    
     const token=req.headers.authorization
-    console.log("token",token);
+   
     const { id } = req.query;
     const responseData = () => {
         if (id) {
@@ -30,10 +30,8 @@ const handler = async (req, res) => {
     };
     if (req.method === "POST") {
         const postData = req.body;
-      
-        console.log("post data****", postData);
         try {const user=await verifyIdToken(token);
-            console.log("user",user);
+            
             User.findOne({ email: user.email },async function (err, result) {
                 if (err) {
                     res.send(err);

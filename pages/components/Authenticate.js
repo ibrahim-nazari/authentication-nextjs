@@ -20,8 +20,8 @@ const Authenticate = ({children}) => {
                 headers: { Authorization: token }
             };
             axios.post("/api/user",{},config).then(res=>{
-                console.log(res.data);nookies.set(undefined,"token",token,{});
-              dispatch({type:"LOGIN",payload:user});
+                nookies.set(undefined,"token",token,{});
+              dispatch({type:"LOGIN",payload:res.data});
             }).catch(error=>console.log(error.message))
 
               

@@ -2,11 +2,12 @@ import React from 'react'
 import Link from "next/link"
 import firebase from "../../firebaseClient"
 import { useContextHook } from '../store'
+import Avatar from 'react-avatar';
 const Header = () => {
   const {state:{user}} =useContextHook();
 
   function signOut() {
-    
+    if(!confirm("do you want SingOut")){return false}
     firebase.auth().signOut();
     
   }
@@ -32,8 +33,8 @@ const Header = () => {
            
           </ul>
           
-        </div><button className="btn btn-default">{user &&user.displayName}</button>
-          {user?(<button onClick={signOut} className="btn btn-outline-info">Sign Out</button>):(<Link href="/login"><a className="btn btn-outline-info">Login</a></Link>)}
+        </div>
+          {user?(<><Avatar style={{cursor:"pointer"}} name={user.name} src={user.avatar}  size="45" round={true} onClick={signOut} /> </>):(<Link href="/login"><a className="btn btn-outline-info">Login</a></Link>)}
           
           
         </div>

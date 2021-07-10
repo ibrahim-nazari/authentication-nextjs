@@ -1,14 +1,18 @@
 import React from 'react'
 import Link from "next/link"
+import Avatar from 'react-avatar';
 const post={title:"Adapting New Technology",img:"uploads/post1.jpeg",author:"Ibrahim Nazari",date:"jan 22, 2019",description:``}
 const Post = ({post}) => {
-    console.log(post);
+    
     return (
         <div className="col-md-4 p-2 mb-5">
             <div className="col-md-12">
             <h5 style={{minHeight:"80px"}}>{post.title.length>100?post.title.slice(0,100):post.title}</h5>
             <img src={post.image} style={{width:"100%"}} />
+            <div className="d-flex my-3"><Avatar style={{marginRight:"12px"}}  name={post.author} src={post.author_avatar}  size="30" round={true} />
             <p>{post.author} <span classNam="text-muted">On <strong>{new Date(post.createdAt).toDateString()}</strong></span></p>
+            </div>
+            
             
             <div className="my-3" dangerouslySetInnerHTML={{__html: post.description.slice(0,100)}}></div>
             <Link href={"/post-detail?id="+post._id}>

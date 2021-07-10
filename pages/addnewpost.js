@@ -23,10 +23,10 @@ const addnewpost = () => {
         console.log(res.data);
         }).catch(error=>console.log(error.message))
     }
-    console.log("token",cookies.token)
+
     const addPost=(e)=>{
      e.preventDefault();
-     let newPost={...post,author:user.displayName?user.displayName:user.email.split("@")[0]}
+     let newPost={...post,author:user.name,author_avatar:user.avatar,author_id:user._id}
      const config = {
         headers: { Authorization: cookies.token }
     };
@@ -87,7 +87,6 @@ export async function getServerSideProps(context) {
    try {
     const cookies=nookies.get(context);
     const user=await verifyIdToken(cookies.token);
-    console.log("user",user);
     return {
       props: {user},
     }

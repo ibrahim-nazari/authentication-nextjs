@@ -4,7 +4,7 @@ import connectDB from "../../middleware/db";
 import User from "../../model/user"
 
 const handler = async (req, res) => {
-    console.log("req **************", req.query);
+
     const token=req.headers.authorization;
     
     const responseData = (id) => {
@@ -26,20 +26,29 @@ const handler = async (req, res) => {
             });
         }
     };
-    if (req.method === "post") {
+    if (req.method === "POST") {
         
         
         try {
             const user= await verifyIdToken(token);
-            User.findOne({ email: user.email }, function (err, result) {
+            let UserData={name:user.name !=""?user.name:user.email.split("@")[0],email:user.email,avatar:user.picture !=""?user.picture:"uploads/avatar.png"}
+            User.findOne({ email: user.email }, async function (err, result) {
                 if (err) {
-                    let user = new User(UserData);
-            var saved = await user.save();
-            console.log("created successfully");
-            return res.status(201).send(saved);
-                    res.send(err);
+                   
+                    return res.status(500).send("something wrong");
+                  
                 } else {
-                   res.status(200).send(result)
+                    if(!result){
+                        
+                        
+                         let newUser = new User(UserData);
+                     var saved = await newUser.save();
+                    return res.status(201).send(saved);
+                 
+                    }else{
+                       res.status(200).send(result) 
+                    }
+                   
                 }
             });
             

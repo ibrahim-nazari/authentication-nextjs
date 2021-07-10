@@ -10,6 +10,7 @@ import { useContextHook } from './store'
 export default function Home() {
   const {state,dispatch}=useContextHook();
 const {posts}=state;
+
   useEffect(() => {
     axios.get("/api/post").then(res=>{
     dispatch({type:"ADD_POSTS",payload:res.data})
@@ -21,7 +22,7 @@ const {posts}=state;
       {posts && <div className="container mt-3">
       <h3 className="text-center">Latest Post</h3>
       <hr/>
-      <Posts posts={state.posts}/>
+      <Posts posts={state.posts} />
     </div>}
     </Authenticate>
     

@@ -6,6 +6,6 @@ let user= new mongoose.Schema({
     name:{type:String,required: true},
     avatar:{type:String,default:"uploads/avatar.png"}
 
-})
+},{timestamps:true})
 
 export default mongoose.models[NAME] || mongoose.model(NAME,user)
