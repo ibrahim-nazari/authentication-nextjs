@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Authenticate from './components/Authenticate'
+import Authenticate from '../components/Authenticate'
 import Link from "next/link"
 import firebase from '../firebaseClient'
 import { provider } from '../firebaseClient'

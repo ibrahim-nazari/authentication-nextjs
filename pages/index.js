@@ -3,8 +3,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect } from 'react'
 import styles from '../styles/Home.module.css'
-import Authenticate from './components/Authenticate'
-import Posts from './components/Posts'
+import Authenticate from '../components/Authenticate'
+import Posts from '../components/Posts'
 import { useContextHook } from './store'
 
 export default function Home() {

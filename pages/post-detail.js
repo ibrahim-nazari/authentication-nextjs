@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/dist/client/router'
 import { useContextHook } from './store';
-import Authenticate from './components/Authenticate';
+import Authenticate from '../components/Authenticate';
 import Avatar from 'react-avatar';
 import Image from 'next/image'
 const PostDetails = () => {

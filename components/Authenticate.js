@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import Header from "./Header"
-import firebase from "../../firebaseClient"
-import { useContextHook } from '../store'
+import firebase from "../firebaseClient"
+import { useContextHook } from '../pages/store'
 import { ToastContainer } from 'react-toastify';
 import nookies from "nookies"
 import axios from 'axios';
