@@ -4,7 +4,7 @@ import firebase from "../firebaseClient"
 import Link from "next/link"
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/dist/client/router'
-const createaccount = () => {
+const Createaccount = () => {
     const router=useRouter();
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
@@ -39,8 +39,8 @@ toast.error(error.message)
                        <input type="password" value={password} onChange={e=>setPassword(e.target.value)} className="form-control" />
                    </div>
                    <div className="form-group my-4">
-                       {!process ?<button className="btn btn-sm btn-info" onClick={SignUp}>Create account</button>:<button class="btn btn-info" type="button" disabled>
-  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                       {!process ?<button className="btn btn-sm btn-info" onClick={SignUp}>Create account</button>:<button className="btn btn-info" type="button" disabled>
+  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
   saving...
 </button>}
                    </div>
@@ -54,4 +54,4 @@ toast.error(error.message)
     )
 }
 
-export default createaccount
+export default Createaccount

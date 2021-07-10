@@ -15,7 +15,7 @@ const {posts}=state;
     axios.get("/api/post").then(res=>{
     dispatch({type:"ADD_POSTS",payload:res.data})
     }).catch(error=>console.log(error.message))
-  }, [])
+  }, [dispatch])
  
   return (
     <Authenticate>

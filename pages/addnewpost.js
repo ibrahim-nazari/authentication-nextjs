@@ -9,7 +9,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { parseCookies } from 'nookies'
 
-const addnewpost = () => {
+const Addnewpost = () => {
     const {state,dispatch}=useContextHook();
     const {user}=state;
     const [post,setPost]=useState({title:"",image:"",description:""});
@@ -82,7 +82,7 @@ console.log(res.data);
     )
 }
 
-export default addnewpost
+export default Addnewpost
 export async function getServerSideProps(context) {
    try {
     const cookies=nookies.get(context);

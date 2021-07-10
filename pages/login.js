@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 import { useRouter } from 'next/dist/client/router'
 import { useContextHook } from './store'
 import axios from 'axios'
-const login = () => {
+const Login = () => {
     const router=useRouter()
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
@@ -47,8 +47,8 @@ const login = () => {
         <Authenticate>
        <div className="container mt-3  ">
            <div className="d-flex justify-content-center flex-column align-items-center">
-              {user? <div class="spinner-grow text-secondary" role="status">
-  <span class="sr-only"></span>
+              {user? <div className="spinner-grow text-secondary" role="status">
+  <span className="sr-only"></span>
 </div>:<> <h4>Sign In</h4>
            <div>
                <form>
@@ -74,5 +74,5 @@ const login = () => {
     )
 }
 
-export default login
+export default Login
 

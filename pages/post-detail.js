@@ -22,7 +22,7 @@ const [post,setPost]=useState(null)
             {user._id==post.author._id && <div><button  className="btn btn-sm btn-outline-success ">Edit</button><button  className="btn btn-sm btn-outline-danger">Danger</button></div>}</div>
             <div className="my-3" dangerouslySetInnerHTML={{__html: post.description}}></div>
         </div></Authenticate>:<div className="spinner-grow text-secondary" role="status">
-  <span class="sr-only"></span>
+  <span className="sr-only"></span>
 </div>
     )
 }
